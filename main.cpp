@@ -37,6 +37,7 @@ struct BgenEncoder {
         m_context.flags|=genfile::bgen::e_Layout2;
         m_context.flags|=genfile::bgen::e_ZstdCompression;
         m_context.magic="bgen";
+//        m_context.number_of_variants = 4691;
 
         // Write the offset, header, and sample IDs if present.
         m_offset = 4;
@@ -61,6 +62,11 @@ struct BgenEncoder {
     {
         m_stream.seekg(4);
         genfile::bgen::write_header_block( m_stream, m_context );
+//        m_context.flags=0;
+//        m_stream.seekg(4);
+//        genfile::bgen::read_header_block( m_stream, &m_context );
+//        summarise(std::cerr);
+
     }
 
     std::size_t number_of_samples() const {
