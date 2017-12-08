@@ -209,7 +209,7 @@ int main(int argc, char ** argv) {
         std::vector<std::string> sampleVec;
         int person = 0;
         for (int i = 0; i < nSamples; i++) {
-            sampleOrderInVCF.insert(std::make_pair(pVcf->vpVcfInds[i]->sIndID, person));
+            sampleOrderInVCF.insert(std::make_pair(pVcf->vpVcfInds[i]->sIndID.c_str(), person));
             sampleVec.push_back(pVcf->vpVcfInds[i]->sIndID.c_str());
             person++;
         }
