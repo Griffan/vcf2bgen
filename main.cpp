@@ -25,7 +25,7 @@ struct BgenEncoder {
             m_filename( filename ),
             m_state( e_NotOpen ),
             m_have_sample_ids( false ),
-            m_stream(filename)
+            m_stream(filename,std::fstream::binary | std::fstream::in | std::fstream::out|std::fstream::trunc)
     {
         if(!m_stream.is_open())
         {
@@ -35,7 +35,7 @@ struct BgenEncoder {
         //Set context information.TODO: initialize m_context
         m_context.flags|=genfile::bgen::e_SampleIdentifiers;
         m_context.flags|=genfile::bgen::e_Layout2;
-        m_context.flags|=genfile::bgen::e_ZstdCompression;
+        m_context.flags|=genfile::bgen::e_ZlibCompression;
         m_context.magic="bgen";
 //        m_context.number_of_variants = 4691;
 
@@ -182,7 +182,7 @@ int main(int argc, char ** argv) {
     std::string outputFilePath(argv[2]);//quick and dirty
 
     std::cerr<<"Input File:"<<inputFilePath<<std::endl;
-    std::cerr<<"Output File"<<outputFilePath<<std::endl;
+    std::cerr<<"Output File:"<<outputFilePath<<std::endl;
     std::cerr<<"Loading VCF..."<<std::endl;
     /****write header*****/
     BgenEncoder encoder(outputFilePath);
@@ -328,6 +328,6 @@ int main(int argc, char ** argv) {
     encoder.summarise(std::cerr);
     encoder.update_header();
     encoder.release_resource();
-    std::cout << "Hello, World!" << std::endl;
+    std::cout << "Finisheda!" << std::endl;
     return 0;
 }
