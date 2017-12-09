@@ -134,7 +134,7 @@ struct BgenEncoder {
 
         genfile::bgen::GenotypeDataBlockWriter dataBlockWriter(&m_buffer1,&m_buffer2,m_context, 16);
         genfile::bgen::v12::v12_HDS::encode_probability_data(numOfAlleles, probs, m_context, dataBlockWriter);
-        //genfile::bgen::compress_probability_data(m_context,m_buffer1, &m_buffer2);
+        genfile::bgen::compress_probability_data(m_context,m_buffer1, &m_buffer2);
         genfile::bgen::write_genotype_data_block(m_stream,dataBlockWriter);
         m_state = e_ReadyForVariant ;
     }
@@ -181,7 +181,9 @@ int main(int argc, char ** argv) {
     std::string inputFilePath(argv[1]);//quick and dirty
     std::string outputFilePath(argv[2]);//quick and dirty
 
-    printf("Load VCF\n\n");
+    std::cerr<<"Input File:"<<inputFilePath<<std::endl;
+    std::cerr<<"Output File"<<outputFilePath<<std::endl;
+    std::cerr<<"Loading VCF..."<<std::endl;
     /****write header*****/
     BgenEncoder encoder(outputFilePath);
     /****write header done****/
@@ -251,8 +253,11 @@ int main(int argc, char ** argv) {
             int GPidx = pMarker->asFormatKeys.Find("GP");
 
 
-            if (DSidx < 0 || GPidx < 0 || GTidx <0 ||HDSidx <0) {
-                throw VcfFileException("Cannot recognize GT, DS, GP or HDS key in FORMAT field");
+//            if (DSidx < 0 || GPidx < 0 || GTidx <0 ||HDSidx <0)
+            if (HDSidx <0)
+            {
+//                throw VcfFileException("Cannot recognize GT, DS, GP or HDS key in FORMAT field");
+                throw VcfFileException("Cannot recognize HDS key in FORMAT field");
             }
 
             int formatLength = pMarker->asFormatKeys.Length();
