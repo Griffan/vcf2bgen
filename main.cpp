@@ -328,6 +328,6 @@ int main(int argc, char ** argv) {
     encoder.summarise(std::cerr);
     encoder.update_header();
     encoder.release_resource();
-    std::cout << "Finisheda!" << std::endl;
+    std::cout << "Finished!" << std::endl;
     return 0;
 }
