@@ -40,5 +40,6 @@ _zstdbench/
 .DS_Store
 googletest/
 *.d
+build
 
 cmake-build-debug
